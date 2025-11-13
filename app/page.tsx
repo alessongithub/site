@@ -14,9 +14,6 @@ import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
 import CookieBanner from '@/components/CookieBanner'
 
-// Garantir renderização estática
-export const dynamic = 'force-static'
-
 export default function Home() {
   return (
     <main className="min-h-screen">
