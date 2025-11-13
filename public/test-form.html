@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Formulário Netlify</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        .debug {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f3f4f6;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Teste de Formulário Netlify</h1>
+    <p>Este é um formulário HTML puro para testar se o Netlify Forms está funcionando.</p>
+    
+    <form 
+        name="contato-evoque" 
+        method="POST" 
+        action="/contato-sucesso"
+        data-netlify="true" 
+        data-netlify-honeypot="bot-field"
+    >
+        <input type="hidden" name="form-name" value="contato-evoque" />
+        
+        <p style="display: none;">
+            <label>
+                Não preencha: <input name="bot-field" />
+            </label>
+        </p>
+        
+        <div class="form-group">
+            <label for="nome">Nome completo *</label>
+            <input type="text" id="nome" name="nome" required placeholder="Seu nome">
+        </div>
+        
+        <div class="form-group">
+            <label for="email">E-mail *</label>
+            <input type="email" id="email" name="email" required placeholder="seu@email.com">
+        </div>
+        
+        <div class="form-group">
+            <label for="telefone">Telefone *</label>
+            <input type="tel" id="telefone" name="telefone" required placeholder="(11) 99999-9999">
+        </div>
+        
+        <div class="form-group">
+            <label for="especialidade">Especialidade / Clínica *</label>
+            <input type="text" id="especialidade" name="especialidade" required placeholder="Ex: Clínica odontológica">
+        </div>
+        
+        <div class="form-group">
+            <label for="mensagem">Mensagem *</label>
+            <textarea id="mensagem" name="mensagem" rows="4" required placeholder="Sua mensagem aqui"></textarea>
+        </div>
+        
+        <button type="submit">Enviar Teste</button>
+    </form>
+    
+    <div class="debug">
+        <strong>ℹ️ Informações de Debug:</strong>
+        <ul>
+            <li>Form name: contato-evoque</li>
+            <li>Method: POST</li>
+            <li>Action: /contato-sucesso</li>
+            <li>data-netlify: true</li>
+            <li>Honeypot: bot-field</li>
+        </ul>
+        <p><strong>Como testar:</strong></p>
+        <ol>
+            <li>Preencha o formulário acima</li>
+            <li>Clique em "Enviar Teste"</li>
+            <li>Verifique o console do navegador (F12)</li>
+            <li>Verifique o painel do Netlify para ver se a submissão apareceu</li>
+        </ol>
+    </div>
+    
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            console.log('📝 Formulário sendo enviado...');
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            console.log('📦 Dados do formulário:', data);
+        });
+    </script>
+</body>
+</html>
+
