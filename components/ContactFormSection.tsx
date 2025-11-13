@@ -32,7 +32,7 @@ export default function ContactFormSection() {
                   name="contato-evoque" 
                   method="POST"
                   action="/contato-sucesso"
-                  data-netlify="true" 
+                  netlify
                   data-netlify-honeypot="bot-field" 
                   className="space-y-6"
                 >
