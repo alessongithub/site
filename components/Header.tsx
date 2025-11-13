@@ -26,13 +26,13 @@ export default function Header() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-24">
           {/* Logo com efeito hover */}
-          <Link href="/" className="flex items-center group">
+          <Link href="/" className="flex items-center group pt-1">
             <div className="relative">
               <Image
                 src="/logo/logo.png"
                 alt="Evoque Assessoria"
-                width={180}
-                height={60}
+                width={150}
+                height={50}
                 className="h-auto w-auto transition-transform duration-300 group-hover:scale-105"
                 priority
               />
