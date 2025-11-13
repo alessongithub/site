@@ -1,5 +1,47 @@
+'use client'
+
+import { useState } from 'react'
+
 export default function ContactFormSection() {
-  // Formulário HTML tradicional - o Netlify Forms processa automaticamente
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    const form = e.currentTarget
+    const formData = new FormData(form)
+
+    // Converter FormData para URLSearchParams (formato application/x-www-form-urlencoded)
+    const params = new URLSearchParams()
+    formData.forEach((value, key) => {
+      if (typeof value === 'string') {
+        params.append(key, value)
+      }
+    })
+
+    try {
+      // Enviar para a raiz do site onde o Netlify Forms processa
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: params.toString(),
+      })
+
+      if (response.ok || response.redirected) {
+        // Redirecionar para página de sucesso
+        window.location.href = '/contato-sucesso'
+      } else {
+        throw new Error(`Erro ${response.status}: ${response.statusText}`)
+      }
+    } catch (error) {
+      console.error('Erro ao enviar formulário:', error)
+      alert('Erro ao enviar formulário. Por favor, tente novamente.')
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <section id="contato-form" className="relative py-20 bg-gradient-to-br from-white via-gray-50 to-primary-50 overflow-hidden">
@@ -30,8 +72,7 @@ export default function ContactFormSection() {
               <div className="p-8 sm:p-10">
                 <form 
                   name="contato-evoque" 
-                  method="POST"
-                  action="/contato-sucesso"
+                  onSubmit={handleSubmit}
                   data-netlify="true"
                   data-netlify-honeypot="bot-field" 
                   className="space-y-6"
@@ -120,10 +161,11 @@ export default function ContactFormSection() {
 
                   <button
                     type="submit"
-                    className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-accent-500 px-6 py-4 text-lg font-semibold text-white shadow-xl transition-all duration-300 hover:shadow-primary-500/40"
+                    disabled={isSubmitting}
+                    className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-accent-500 px-6 py-4 text-lg font-semibold text-white shadow-xl transition-all duration-300 hover:shadow-primary-500/40 disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     <span className="relative z-10 flex items-center justify-center gap-3">
-                      Enviar mensagem
+                      {isSubmitting ? 'Enviando...' : 'Enviar mensagem'}
                       <svg
                         className="w-6 h-6 transform transition-transform duration-300 group-hover:translate-x-2"
                         fill="none"
