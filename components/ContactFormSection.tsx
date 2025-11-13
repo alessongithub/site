@@ -1,48 +1,6 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-
 export default function ContactFormSection() {
-  const router = useRouter()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-
-    const form = e.currentTarget
-    const formData = new FormData(form)
-
-    // Converter FormData para URLSearchParams para Netlify Forms
-    const params = new URLSearchParams()
-    formData.forEach((value, key) => {
-      if (typeof value === 'string') {
-        params.append(key, value)
-      }
-    })
-
-    try {
-      // Enviar diretamente para o Netlify Forms
-      // O Netlify Forms processa submissões em qualquer URL do site
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params.toString(),
-      })
-
-      if (response.ok) {
-        router.push('/contato-sucesso')
-      } else {
-        throw new Error('Erro ao enviar formulário')
-      }
-    } catch (error) {
-      console.error('Erro:', error)
-      router.push('/contato-sucesso?error=1')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
 
   return (
     <section id="contato-form" className="relative py-20 bg-gradient-to-br from-white via-gray-50 to-primary-50 overflow-hidden">
@@ -71,7 +29,14 @@ export default function ContactFormSection() {
 
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr]">
               <div className="p-8 sm:p-10">
-                <form name="contato-evoque" onSubmit={handleSubmit} data-netlify="true" netlify-honeypot="bot-field" className="space-y-6">
+                <form 
+                  name="contato-evoque" 
+                  method="POST" 
+                  action="/contato-sucesso"
+                  data-netlify="true" 
+                  netlify-honeypot="bot-field" 
+                  className="space-y-6"
+                >
                   <input type="hidden" name="form-name" value="contato-evoque" />
                   
                   <p className="hidden">
@@ -156,21 +121,18 @@ export default function ContactFormSection() {
 
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-accent-500 px-6 py-4 text-lg font-semibold text-white shadow-xl transition-all duration-300 hover:shadow-primary-500/40 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-accent-500 px-6 py-4 text-lg font-semibold text-white shadow-xl transition-all duration-300 hover:shadow-primary-500/40"
                   >
                     <span className="relative z-10 flex items-center justify-center gap-3">
-                      {isSubmitting ? 'Enviando...' : 'Enviar mensagem'}
-                      {!isSubmitting && (
-                        <svg
-                          className="w-6 h-6 transform transition-transform duration-300 group-hover:translate-x-2"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                        </svg>
-                      )}
+                      Enviar mensagem
+                      <svg
+                        className="w-6 h-6 transform transition-transform duration-300 group-hover:translate-x-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
                     </span>
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-accent-200/40 via-white/30 to-primary-100/40"></div>
                   </button>
