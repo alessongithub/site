@@ -1,6 +1,7 @@
 'use client'
 
 import ParticleBackground from './ParticleBackground'
+import AnimatedCounter from './AnimatedCounter'
 
 export default function HeroSection() {
   const handleCTAClick = () => {
@@ -80,6 +81,31 @@ export default function HeroSection() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </a>
+          </div>
+
+          {/* Contadores Animados - Prova Social */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+            <AnimatedCounter
+              end={150}
+              suffix="+"
+              label="Pacientes Captados"
+              delay={300}
+              duration={2500}
+            />
+            <AnimatedCounter
+              end={45}
+              suffix="+"
+              label="Clínicas Transformadas"
+              delay={600}
+              duration={2500}
+            />
+            <AnimatedCounter
+              end={98}
+              suffix="%"
+              label="Taxa de Conversão"
+              delay={900}
+              duration={2500}
+            />
           </div>
 
           {/* Ilustração/Placeholder - SVG de crescimento */}
