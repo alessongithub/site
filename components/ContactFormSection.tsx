@@ -1,67 +1,5 @@
-'use client'
-
-import { useState } from 'react'
-
 export default function ContactFormSection() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [debugInfo, setDebugInfo] = useState<string>('')
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    const form = e.currentTarget
-    const formData = new FormData(form)
-    
-    // Log de debug
-    const debugData: Record<string, string> = {}
-    formData.forEach((value, key) => {
-      if (typeof value === 'string') {
-        debugData[key] = value
-      }
-    })
-    
-    console.log('📝 Dados do formulário:', debugData)
-    setDebugInfo(`Enviando: ${JSON.stringify(debugData, null, 2)}`)
-    
-    // Converter para URLSearchParams (formato que Netlify espera)
-    const params = new URLSearchParams()
-    formData.forEach((value, key) => {
-      if (typeof value === 'string') {
-        params.append(key, value)
-      }
-    })
-    
-    try {
-      // Enviar para o Netlify Forms
-      // O Netlify processa POSTs em qualquer URL do site
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: params.toString(),
-      })
-      
-      console.log('📡 Resposta do servidor:', response.status, response.statusText)
-      setDebugInfo(prev => prev + `\nStatus: ${response.status} ${response.statusText}`)
-      
-      // Verificar se foi redirecionado (Netlify faz redirect 302)
-      if (response.ok || response.redirected) {
-        const finalUrl = response.url || '/contato-sucesso'
-        console.log('✅ Redirecionando para:', finalUrl)
-        window.location.href = finalUrl
-      } else {
-        throw new Error(`Erro ${response.status}: ${response.statusText}`)
-      }
-    } catch (error) {
-      console.error('❌ Erro ao enviar formulário:', error)
-      setDebugInfo(prev => prev + `\n❌ Erro: ${error}`)
-      alert('Erro ao enviar formulário. Verifique o console para mais detalhes.')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
+  // Formulário HTML tradicional - o Netlify Forms processa automaticamente
 
   return (
     <section id="contato-form" className="relative py-20 bg-gradient-to-br from-white via-gray-50 to-primary-50 overflow-hidden">
@@ -92,7 +30,8 @@ export default function ContactFormSection() {
               <div className="p-8 sm:p-10">
                 <form 
                   name="contato-evoque" 
-                  onSubmit={handleSubmit}
+                  method="POST"
+                  action="/contato-sucesso"
                   data-netlify="true" 
                   data-netlify-honeypot="bot-field" 
                   className="space-y-6"
@@ -179,20 +118,12 @@ export default function ContactFormSection() {
                     />
                   </div>
 
-                  {debugInfo && (
-                    <div className="p-4 bg-gray-100 rounded-lg text-xs font-mono text-gray-700 whitespace-pre-wrap max-h-40 overflow-auto">
-                      <strong>Debug Info:</strong>
-                      {debugInfo}
-                    </div>
-                  )}
-                  
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-accent-500 px-6 py-4 text-lg font-semibold text-white shadow-xl transition-all duration-300 hover:shadow-primary-500/40 disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="group relative w-full overflow-hidden rounded-2xl bg-gradient-to-r from-primary-600 via-primary-500 to-accent-500 px-6 py-4 text-lg font-semibold text-white shadow-xl transition-all duration-300 hover:shadow-primary-500/40"
                   >
                     <span className="relative z-10 flex items-center justify-center gap-3">
-                      {isSubmitting ? 'Enviando...' : 'Enviar mensagem'}
+                      Enviar mensagem
                       <svg
                         className="w-6 h-6 transform transition-transform duration-300 group-hover:translate-x-2"
                         fill="none"

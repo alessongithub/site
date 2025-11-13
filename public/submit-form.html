@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processando formulário...</title>
+</head>
+<body>
+    <form id="netlify-form" name="contato-evoque" method="POST" netlify data-netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="contato-evoque" />
+        <input type="text" name="nome" />
+        <input type="email" name="email" />
+        <input type="tel" name="telefone" />
+        <input type="text" name="especialidade" />
+        <textarea name="mensagem"></textarea>
+        <input type="text" name="bot-field" />
+    </form>
+    
+    <script>
+        // Pegar parâmetros da URL e preencher o formulário
+        const urlParams = new URLSearchParams(window.location.search);
+        const form = document.getElementById('netlify-form');
+        
+        // Preencher campos do formulário com os parâmetros
+        urlParams.forEach((value, key) => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = value;
+            form.appendChild(input);
+        });
+        
+        // Submeter automaticamente
+        form.submit();
+    </script>
+</body>
+</html>
+
