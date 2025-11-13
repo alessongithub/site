@@ -26,15 +26,15 @@ export default function Header() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-24">
           {/* Logo com efeito hover */}
-          <Link href="/" className="flex items-center group" style={{ paddingTop: '4px', paddingBottom: '4px' }}>
-            <div className="relative" style={{ height: '60px', width: 'auto' }}>
+          <Link href="/" className="flex items-center group" style={{ paddingTop: '3px', paddingBottom: '3px' }}>
+            <div className="relative" style={{ height: '65px', width: 'auto' }}>
               <Image
                 src="/logo/logo.png"
                 alt="Evoque Assessoria"
-                width={190}
-                height={60}
-                className="!h-[60px] !w-auto !max-w-[190px] transition-transform duration-300 group-hover:scale-105 object-contain"
-                style={{ maxHeight: '60px', width: 'auto' }}
+                width={205}
+                height={65}
+                className="!h-[65px] !w-auto !max-w-[205px] transition-transform duration-300 group-hover:scale-105 object-contain"
+                style={{ maxHeight: '65px', width: 'auto' }}
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-accent-500/20 rounded-lg blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
