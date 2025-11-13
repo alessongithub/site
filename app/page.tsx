@@ -8,6 +8,7 @@ import ProcessSection from '@/components/ProcessSection'
 import DifferentialsSection from '@/components/DifferentialsSection'
 import InvestmentSection from '@/components/InvestmentSection'
 import FAQSection from '@/components/FAQSection'
+import ContactFormSection from '@/components/ContactFormSection'
 import FinalCTA from '@/components/FinalCTA'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
@@ -26,6 +27,7 @@ export default function Home() {
       <DifferentialsSection />
       <InvestmentSection />
       <FAQSection />
+      <ContactFormSection />
       <FinalCTA />
       <Footer />
       <WhatsAppButton />

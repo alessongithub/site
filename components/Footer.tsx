@@ -70,9 +70,9 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="mailto:contato@evoque.com.br" className="hover:text-white transition-colors">
-                  contato@evoque.com.br
-                </a>
+                <Link href="#contato-form" className="hover:text-white transition-colors">
+                  contato@evoqueassessoria.com.br
+                </Link>
               </li>
             </ul>
           </div>
